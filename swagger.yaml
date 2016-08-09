@@ -1,0 +1,69 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Swager api sample
+  description: |
+    #### Swagger API description example
+    
+schemes:
+  - https
+host: swagger-api-sample.herokuapp.com
+paths:
+  /:
+    get:
+      responses:
+        200:
+          description: Echo OK
+          
+  /pokemon/list:
+    get:
+      responses:
+        200:
+          description: Return all as array
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Monster'
+              
+  /pokemon/info/{monsterName}:
+    get:
+      parameters:
+        - name: monsterName
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Return a monster from name
+          schema:
+            $ref: '#/definitions/Monster'
+          
+  /pokemon/add:
+    post:
+      description: Add new Pokemon
+      parameters:
+        - name: newMonster
+          in: body
+          required: true
+          schema: 
+            $ref: '#/definitions/Monster'
+      responses:
+        200:
+          description: Return added monster
+          schema:
+            $ref: '#/definitions/Monster'
+          
+definitions:  
+  Monster:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Pokemon name
+      hp:
+        type: number
+        description:  Max health points
+      atk:
+        type: number
+        description: atk damages
